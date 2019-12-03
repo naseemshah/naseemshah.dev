@@ -68,7 +68,7 @@ p{
     
     border-radius: 20px;
     margin: 0 auto;
-    transform: translateY(50%);
+    transform: translateY(40%);
 }
 
 /* Styling for Social links */
@@ -147,11 +147,24 @@ p{
   transform: scale(1.6);
   -webkit-text-fill-color: #fff;
 }
+a{
+    text-decoration: none;
+    color: white;
+    text-decoration-line: underline;
+}
 /* End of styling for social links*/
 
 @media only screen and (max-width: 650px){
     .details{
         transform: scale(0.7);
+    }
+
+}
+
+
+@media only screen and (max-width: 400px){
+    .details{
+        transform: scale(0.5);
     }
 
 }
