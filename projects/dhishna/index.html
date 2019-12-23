@@ -7,9 +7,7 @@
     		margin: 0;
     		overflow: hidden;
     	
-            background: -moz-linear-gradient(top,  #000000 0%, #d600ff 50%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top,  #000000 0%,#d600ff 50%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom,  #000000 0%,#d600ff 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            
         }
      
     </style>
@@ -194,6 +192,45 @@
     sun.position.z= -60000;
     sun.position.x = 0;
     sun.position.y = 10000;
+
+
+        
+    var bgG = new THREE.PlaneGeometry( 500000, 30000 );
+    var bgM = new THREE.ShaderMaterial({
+                    uniforms: {
+                        color1: {
+                        value: new THREE.Color(0xd600ff)
+                        },
+                        color2: {
+                        value: new THREE.Color(0x000000) 
+                        }
+                    },
+                    vertexShader: `
+                        varying vec2 vUv;
+
+                        void main() {
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+                        }
+                    `,
+                    fragmentShader: `
+                        uniform vec3 color1;
+                        uniform vec3 color2;
+                    
+                        varying vec2 vUv;
+                        
+                        void main() {
+                        
+                        gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
+                        }
+                    `,
+                    fog: false
+                    });
+    var bg =  new THREE.Mesh(bgG,bgM);
+    scene.add(bg);
+    bg.position.z= -61000;
+    bg.position.x = 0;
+    bg.position.y = 10000;
 
 
     
