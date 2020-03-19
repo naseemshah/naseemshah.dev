@@ -23,6 +23,9 @@ function delay(n){
 //Initial Content ANimation
 function contentAnimation(){
     var tl =  gsap.timeline();
+    //fake Loader Animation
+    tl.to(".progress", {duration: 4, scaleX: 1, transformOrigin: 'left', ease: Power3.easeInOut});
+    tl.to(".loadBG", {duration: 1, opacity: 0, ease: Power3.easeInOut});
     tl.from(".left",{ x:-200, y:0, duration: 1, ease: Power3.easeInOut, opacity: 0  });
     
 }
