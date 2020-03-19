@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Barba.Js + GSAP Page Transition </title>
+    <meta name="theme-color" content="#000000">
+</head>
+<body data-barba="wrapper">
+    <!-- Transition Screen -->
+    <div id="trans">
+        <h1 class="loadText">
+            Naseem Shah
+        </h1>        
+    </div>
+    <!-- End of Transition screen -->
+
+    <!--
+    Barba.js need a wrapper to inject code 
+    dynamically. so use .wrapper class
+    -->
+    <div class="wrapper">
+        
+        <main data-barba="container" data-barba-namespace="home">
+            <div class="left">
+                <h1>👋 Hi! I am<br>Naseem Shah</h1>
+                <p>Know more about me 👇</p>
+                <a class="cta" href="about.html">About Me</a>                
+            </div>
+        </main>
+    </div>
+    <script src="https://unpkg.com/@barba/core"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
