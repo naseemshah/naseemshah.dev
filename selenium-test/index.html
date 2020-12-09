@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Testing</title>
+</head>
+<body>
+    <h1>Selenium Testing</h1>
+    <h3>This webpage was made for testing a basic calculator using selenium</h3>
+    <label for="num1"></label>
+    <input type="number" name="num1" id="num1">
+    <label for="num2"></label>
+    <input type="number" name="num2" id="num2">
+    <button id="addBtn">Add</button>
+    <button id="subBtn">Subtract</button>
+    <button id="mulBtn">Multiply</button>
+    <button id="divBtn">Divide</button>
+    <h3>Result:</h3>
+    <h2 id="result"></h2>
+    <script>
+        let num1 = document.getElementById('num1');
+        let num2 = document.getElementById('num2');
+        let addbtn = document.getElementById('addBtn');
+        let mulbtn = document.getElementById('mulBtn');
+        let divbtn = document.getElementById('divBtn');
+        let subbtn = document.getElementById('subBtn');
+        let result = document.getElementById('result');
+        addbtn.onclick = () =>{
+            num1.value || num2.value ? result.innerHTML =   parseInt(num1.value)  + parseInt(num2.value) : result.innerHTML = 0
+        }
+        subbtn.onclick = () =>{
+            num1.value || num2.value ? result.innerHTML = parseInt(num1.value)  -  parseInt(num2.value) : result.innerHTML = 0
+        }
+        mulbtn.onclick = () =>{
+            num1.value || num2.value ? result.innerHTML = parseInt(num1.value)  *  parseInt(num2.value) : result.innerHTML = 0
+        }
+        divbtn.onclick = () =>{
+            num1.value || num2.value ? result.innerHTML = parseInt(num1.value)  /  parseInt(num2.value) : result.innerHTML = 0
+        }
+
+
+    </script>
+</body>
+</html>
