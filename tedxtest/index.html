@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TedX CUSAT</title>
-</head>
+    <link href="./style.css" rel="stylesheet" />
+
+</head> 
 <body>
     <h1>TEDx Stream Test</h1>
-    <iframe width="853" height="480" src="https://www.youtube.com/embed/Rm8wBeMNvwI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    
+    <video id="player"  controls="" autoplay="" name="media" class="player">
+        <source src="https://user-images.githubusercontent.com/44234669/103335186-4c45e480-4a9a-11eb-87d3-806ee2c83dad.mp4" type="video/mp4">
+    </video>
+    <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+    <script>
+        let player = videojs('player', {
+        controls: false,
+        autoplay: true,
+        preload: 'auto'
+        });
+    </script>
 </body>
 </html>
