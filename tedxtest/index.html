@@ -9,16 +9,61 @@
 </head> 
 <body>
     <h1>TEDx Stream Test</h1>
-    <video id="player"  controls="" autoplay="" name="media" class="player">
+    <!-- <video id="player"  controls="" autoplay="" name="media" >
         <source src="./30_Minute_Timer.mp4" type="video/mp4">
-    </video>
-    <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+        </video> -->
+        <!-- <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
     <script>
         let player = videojs('player', {
         controls: false,
         autoplay: true,
         preload: 'auto'
         });
-    </script>
+        let startTime = new Date(2021,1,9,12,30,0,0)
+        let currentTime = new Date()
+        let timeDiff =  Math.abs(startTime.getMinutes() - currentTime.getMinutes())
+        console.log(timeDiff);
+        player.currentTime(timeDiff*60)
+        player.play()   
+    </script> -->
+    <iframe src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        var iframe = document.querySelector('iframe');
+        var player = new Vimeo.Player(iframe, {controls: false});
+
+        player.on('loaded', function() {
+            console.log('loaded the video!');
+        });
+
+        player.getVideoTitle().then(function(title) {
+            console.log('title:', title);
+        });
+        
+        let startTime = new Date(2021,1,9,13,50,0,0)
+        let currentTime = new Date()
+        let timeDiff =  Math.abs(startTime.getMinutes() - currentTime.getMinutes())
+        console.log(timeDiff);
+        
+        player.setCurrentTime(timeDiff*60).then(function(seconds) {
+            // seconds = the actual time that the player seeked to
+            player.play()
+        }).catch(function(error) {
+            switch (error.name) {
+                case 'RangeError':
+                    // the time was less than 0 or greater than the video’s duration
+                    break;
+
+                default:
+                    // some other error occurred
+                    break;
+            }
+        });
+    </script>  
+    <style>
+        .vp-controls{
+            display: none!important;
+        }
+    </style>
 </body>
 </html>
