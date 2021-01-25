@@ -46,3 +46,11 @@ body{
 .button-out{
   display: none!important;
 }
+
+#loading{
+  display: none;
+}
+
+.loading-in{
+  display: unset!important;
+}

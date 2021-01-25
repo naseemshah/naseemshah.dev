@@ -10,6 +10,7 @@
 <body>
     <h1>TEDx Stream Test</h1>
     <p id="timer"></p>
+    <p id="loading">Loading...</p>
     <button
         onclick="handleButtonClick()"
         id="startStreamButton"
@@ -48,7 +49,7 @@
             console.log('title:', title);
         });
         
-        let startTime =  new Date("Jan 26, 2021 2:00:00")
+        let startTime =  new Date("Jan 26, 2021 3:00:00")
         let currentTime = new Date()
         let timeDiff = 0;
         
@@ -81,18 +82,27 @@
                     document.getElementById("timer").innerHTML = "Loading Video....";
                     document.getElementById("timer").classList.add('timer-out')
                     document.getElementById("startStreamButton").classList.add('button-in')
+                    player.setCurrentTime(0)
                     
                 }
             }, 1000);
 
             let handleButtonClick = () =>{
-                console.log('hooo');
-                    document.getElementById("startStreamButton").classList.remove('button-in')
-                document.getElementById("player").classList.add('player-in');
-                timeDiff =   (Math.abs(startTime.getMinutes() - currentTime.getMinutes())*60) + Math.abs(startTime.getSeconds() - currentTime.getSeconds()) 
-                player.setCurrentTime(timeDiff).then(function(seconds) {
+                let buttonClickTime = new Date()
+                document.getElementById("startStreamButton").classList.remove('button-in')
+                document.getElementById("loading").classList.add('loading-in');
+                timeDiff = buttonClickTime - startTime;
+                timeDiff /= 1000;
+                
+                // timeDiff = timeDiff.getSeconds()
+                console.log(timeDiff);
+                // if(timeDiff<10) timeDiff = 1;
+                player.setCurrentTime(Math.round(timeDiff)).then(function(seconds) {
                     // seconds = the actual time that the player seeked to
-                    player.play()
+                    player.play().then(()=>{
+                        document.getElementById("loading").classList.remove('loading-in');
+                        document.getElementById("player").classList.add('player-in');
+                    })
                 }).catch(function(error) {
                     switch (error.name) {
                         case 'RangeError':
