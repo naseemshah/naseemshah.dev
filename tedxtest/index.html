@@ -9,6 +9,12 @@
 </head> 
 <body>
     <h1>TEDx Stream Test</h1>
+    <p id="timer"></p>
+    <button
+        onclick="handleButtonClick()"
+        id="startStreamButton"
+        class=""
+    >Start Stearm</button>
     <!-- <video id="player"  controls="" autoplay="" name="media" >
         <source src="./30_Minute_Timer.mp4" type="video/mp4">
         </video> -->
@@ -26,7 +32,9 @@
         player.currentTime(timeDiff*60)
         player.play()   
     </script> -->
-    <iframe src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <div id="player">
+        <iframe  src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
         var iframe = document.querySelector('iframe');
@@ -40,30 +48,66 @@
             console.log('title:', title);
         });
         
-        let startTime = new Date(2021,1,9,13,50,0,0)
+        let startTime =  new Date("Jan 26, 2021 1:40:00")
         let currentTime = new Date()
-        let timeDiff =  Math.abs(startTime.getMinutes() - currentTime.getMinutes())
-        console.log(timeDiff);
+        let timeDiff = 0;
         
-        player.setCurrentTime(timeDiff*60).then(function(seconds) {
-            // seconds = the actual time that the player seeked to
-            player.play()
-        }).catch(function(error) {
-            switch (error.name) {
-                case 'RangeError':
-                    // the time was less than 0 or greater than the video’s duration
-                    break;
+        // ============
 
-                default:
-                    // some other error occurred
-                    break;
+        // Set the date we're counting down to
+            var countDownDate = startTime.getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+                // Get today's date and time
+                var now = new Date().getTime();
+                    
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+                    
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                // Output the result in an element with id="demo"
+                document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+                    
+                // If the count down is over, write some text 
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("timer").innerHTML = "Loading Video....";
+                    document.getElementById("timer").classList.add('timer-out')
+                    document.getElementById("startStreamButton").classList.add('button-in')
+                    
+                }
+            }, 1000);
+
+            let handleButtonClick = () =>{
+                console.log('hooo');
+                    document.getElementById("startStreamButton").classList.remove('button-in')
+                document.getElementById("player").classList.add('player-in');
+                timeDiff =   (Math.abs(startTime.getMinutes() - currentTime.getMinutes())*60) + Math.abs(startTime.getSeconds() - currentTime.getSeconds()) 
+                player.setCurrentTime(timeDiff).then(function(seconds) {
+                    // seconds = the actual time that the player seeked to
+                    player.play()
+                }).catch(function(error) {
+                    switch (error.name) {
+                        case 'RangeError':
+                            // the time was less than 0 or greater than the video’s duration
+                            break;
+
+                        default:
+                            // some other error occurred
+                            break;
+                    }
+                });
+
+
+
             }
-        });
     </script>  
-    <style>
-        .vp-controls{
-            display: none!important;
-        }
-    </style>
 </body>
 </html>
