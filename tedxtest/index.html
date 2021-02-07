@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TedX CUSAT</title>
     <link href="./style.css" rel="stylesheet" />
-
+    <script async src="https://www.widgetsquad.com/pixel/iwoc8xtvsuoypusa0k3vhmughcfzakei"></script>
 </head> 
 <body>
     <h1>TEDx Stream Test</h1>
     <p id="timer"></p>
-    <p id="loading">Loading...</p>
+    <p id="loading"><img src="./loading.svg" alt="">  Loading...</p>
     <button
         onclick="handleButtonClick()"
         id="startStreamButton"
@@ -35,7 +35,8 @@
     </script> -->
     <div id="player">
         <!-- <iframe  src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> -->
-        <iframe src="https://player.vimeo.com/video/509397161" width="640" height="352" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <!-- <iframe src="https://player.vimeo.com/video/509397161" width="640" height="352" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> -->
+        <iframe src="https://player.vimeo.com/video/509478724" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
@@ -50,7 +51,7 @@
             console.log('title:', title);
         });
         
-        let startTime =  new Date("Feb 07, 2021 20:15:00")
+        let startTime =  new Date("Feb 07, 2021 22:45:00")
         let currentTime = new Date()
         let timeDiff = 0;
         
