@@ -34,7 +34,8 @@
         player.play()   
     </script> -->
     <div id="player">
-        <iframe  src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <!-- <iframe  src="https://player.vimeo.com/video/474205321" width="640" height="361" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> -->
+        <iframe src="https://player.vimeo.com/video/509397161" width="640" height="352" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
     </div>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
@@ -49,72 +50,66 @@
             console.log('title:', title);
         });
         
-        let startTime =  new Date("Jan 26, 2021 3:10:00")
+        let startTime =  new Date("Feb 07, 2021 20:15:00")
         let currentTime = new Date()
         let timeDiff = 0;
         
-        // ============
-
-        // Set the date we're counting down to
             var countDownDate = startTime.getTime();
 
-            // Update the count down every 1 second
             var x = setInterval(function() {
-                // Get today's date and time
                 var now = new Date().getTime();
-                    
-                // Find the distance between now and the count down date
                 var distance = countDownDate - now;
-                    
-                // Time calculations for days, hours, minutes and seconds
                 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    
-                // Output the result in an element with id="demo"
                 document.getElementById("timer").innerHTML = days + "d " + hours + "h "
                 + minutes + "m " + seconds + "s ";
-                    
-                // If the count down is over, write some text 
                 if (distance < 0) {
                     clearInterval(x);
                     document.getElementById("timer").innerHTML = "Loading Video....";
                     document.getElementById("timer").classList.add('timer-out')
                     document.getElementById("startStreamButton").classList.add('button-in')
                     player.setCurrentTime(0)
-                    
                 }
             }, 1000);
-
+            
             let handleButtonClick = () =>{
                 let buttonClickTime = new Date()
                 document.getElementById("startStreamButton").classList.remove('button-in')
                 document.getElementById("loading").classList.add('loading-in');
                 timeDiff = buttonClickTime - startTime;
                 timeDiff /= 1000;
-                
-                // timeDiff = timeDiff.getSeconds()
                 console.log(timeDiff);
-                // if(timeDiff<10) timeDiff = 1;
-                player.setCurrentTime(Math.round(timeDiff)).then(function(seconds) {
-                    // seconds = the actual time that the player seeked to
-                    player.play().then(()=>{
+                let totalDuration;
+                player.getDuration().then((duration)=>{ 
+                    let totalDuration = duration
+                    if(timeDiff<totalDuration){
+                        player.setCurrentTime(Math.abs(Math.round(timeDiff))).then((seconds) => {
+                            player.play().then(()=>{
+                                document.getElementById("loading").classList.remove('loading-in');
+                                document.getElementById("player").classList.add('player-in');
+                            })
+                        }).catch(function(error) {
+                            switch (error.name) {
+                                case 'RangeError':
+                                        console.log("range error ayi mwone");
+                                        console.log(error);
+                                    break;
+                                default:
+                                    console.log(error);
+                                    break;
+                            }
+                        });
+                    }else{
                         document.getElementById("loading").classList.remove('loading-in');
-                        document.getElementById("player").classList.add('player-in');
-                    })
-                }).catch(function(error) {
-                    switch (error.name) {
-                        case 'RangeError':
-                            // the time was less than 0 or greater than the video’s duration
-                            break;
-
-                        default:
-                            // some other error occurred
-                            break;
+                        document.getElementById("timer").innerHTML = "Event has finished :)"
+                        document.getElementById("timer").classList.remove('timer-out');
                     }
-                });
 
+                
+                })    
+                
 
 
             }
